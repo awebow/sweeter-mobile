@@ -1,9 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:sweeter_mobile/login/login_page.dart';
+import 'dart:convert';
+import 'dart:io';
 
-void main() => runApp(MyApp());
+import 'package:flutter/material.dart';
+import 'package:sweeter_mobile/data.dart';
+import 'package:sweeter_mobile/login/login_page.dart';
+import 'package:path_provider/path_provider.dart';
+
+void main() async {
+  final dir = await getApplicationDocumentsDirectory();
+  File file = File('$dir/data.json');
+  Data data;
+  if(await file.exists()) {
+    String raw = file.readAsStringSync();
+    data = Data.fromJson(jsonDecode(raw));
+  }
+  else {
+    data = Data();
+  }
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
