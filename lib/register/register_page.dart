@@ -44,7 +44,7 @@ class RegisterPage extends StatelessWidget {
   }
 
   void doRegister(BuildContext context) {
-    bloc.submit(idController.text, pwController.text, nameController.text).then((user) {
+    bloc.submit(idController.text, pwController.text, nameController.text).then((_) {
       Navigator.pop(context, true);
     }).catchError((error) {
       if(error == 409) {
