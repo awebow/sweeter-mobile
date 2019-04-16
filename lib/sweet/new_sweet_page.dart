@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sweeter_mobile/main/main_bloc.dart';
-import 'package:sweeter_mobile/models/user.dart';
 import 'package:sweeter_mobile/sweet/new_sweet_bloc.dart';
 
 class NewSweetPage extends StatelessWidget {
@@ -18,8 +16,8 @@ class NewSweetPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.create),
             onPressed: () {
-              bloc.submit(contentController.text).then((_) {
-                Navigator.pop(context);
+              bloc.submit(contentController.text).then((sweet) {
+                Navigator.pop(context, sweet);
               });
             }
           )

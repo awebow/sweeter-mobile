@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:sweeter_mobile/models/user.dart';
 
-const serverUrl = "http://192.168.0.27:8080";
+const serverUrl = "http://10.0.2.2:8080";
 var _authorization = "";
 
 Future<dynamic> get(String resource) async {
