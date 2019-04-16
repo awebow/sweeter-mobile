@@ -9,14 +9,31 @@ class MainPage extends StatelessWidget {
   final MainBloc bloc = MainBloc();
   final User initialUser;
 
-  MainPage({User user}) : this.initialUser = user {
+  MainPage({User user}) : initialUser = user {
     bloc.refreshSweets();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Sweeter")),
+      appBar: AppBar(
+        title: Theme(
+          data: Theme.of(context).copyWith(splashColor: Colors.transparent),
+          child: Container(height: 40, child: TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.search),
+              hintText: "Search",
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide.none
+              ),
+              contentPadding: EdgeInsets.all(0)
+            ),
+          ))
+        )
+      ),
       body: Column(
         children: <Widget>[
           StreamBuilder<User>(
