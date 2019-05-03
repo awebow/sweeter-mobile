@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:sweeter_mobile/main/main_bloc.dart';
 import 'package:sweeter_mobile/models/user.dart';
+import 'package:sweeter_mobile/search/search_page.dart';
 import 'package:sweeter_mobile/sweet/new_sweet_page.dart';
 import 'package:sweeter_mobile/sweet/sweet_list.dart';
+import 'package:sweeter_mobile/utils/actions.dart' as actions;
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+
+  final User initialUser;
+
+  MainPage({User user}) : initialUser = user;
+
+  @override
+  State<StatefulWidget> createState() {
+    return MainPageState(user: initialUser);
+  }
+
+}
+
+class MainPageState extends State<MainPage> {
 
   final MainBloc bloc = MainBloc();
   final User initialUser;
 
-  MainPage({User user}) : initialUser = user {
+  MainPageState({User user}) : initialUser = user {
     bloc.refreshSweets();
   }
 
@@ -19,38 +34,39 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: Theme(
           data: Theme.of(context).copyWith(splashColor: Colors.transparent),
-          child: Container(height: 40, child: TextField(
+          child: Container(height: 35, child: TextField(
+            textInputAction: TextInputAction.search,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.search),
               hintText: "Search",
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(17.5),
                 borderSide: BorderSide.none
               ),
               contentPadding: EdgeInsets.all(0)
             ),
-          ))
-        )
-      ),
-      body: Column(
-        children: <Widget>[
-          StreamBuilder<User>(
-            stream: bloc.meStream,
-            initialData: initialUser,
-            builder: (context, snapshot) {
-              return Column(
-                children: <Widget>[
-                  Text("ID: ${snapshot.data.id}"),
-                  Text("Name: ${snapshot.data.name}")
-                ],
-              );
+            onSubmitted: (keyword) {
+              if(keyword.length > 0)
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(keyword)));
             },
-          ),
-          Expanded(child: SweetList(bloc.mySweetsStream))
+          ))
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.account_circle),
+            iconSize: 40,
+            onPressed: () => actions.showMyPage(context),
+            padding: EdgeInsets.all(0),
+          )
         ],
       ),
+      body: Container(color: Colors.grey[200], child: Column(
+        children: <Widget>[
+          Expanded(child: SweetList(bloc.mySweetsStream, onRefresh: bloc.refreshSweets))
+        ],
+      )),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.create),
         onPressed: () {
@@ -62,6 +78,12 @@ class MainPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
   }
 
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sweeter_mobile/data.dart';
 import 'package:sweeter_mobile/login/login_page.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sweeter_mobile/splash/splash_page.dart';
 
 void main() async {
   final dir = await getApplicationDocumentsDirectory();
@@ -28,9 +29,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sweeter',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
+        primaryColor: Colors.pink[300],
       ),
-      home: LoginPage(),
+      home: SplashPage(),
     );
   }
 }

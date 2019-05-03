@@ -26,6 +26,28 @@ Future<dynamic> post(String resource, {dynamic body}) async {
   }
 }
 
+Future<dynamic> put(String resource, {dynamic body, bool raw = false, String contentType = "application/json"}) async {
+  var header = _getDefaultHeaders();
+  header["Content-Type"] = contentType;
+  var response = await http.put(serverUrl + resource, body: raw ? body : jsonEncode(body), headers: header);
+  if(response.statusCode == 200) {
+    return jsonDecode(response.body);
+  }
+  else {
+    return Future.error(response.statusCode);
+  }
+}
+
+Future<dynamic> delete(String resource, {dynamic body}) async {
+  var response = await http.delete(serverUrl + resource, headers: _getDefaultHeaders());
+  if(response.statusCode == 200) {
+    return jsonDecode(response.body);
+  }
+  else {
+    return Future.error(response.statusCode);
+  }
+}
+
 setAuthorization(String authorization) {
   _authorization = authorization;
 }

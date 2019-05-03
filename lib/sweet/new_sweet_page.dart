@@ -11,7 +11,7 @@ class NewSweetPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sweeter"),
+        title: Text("New Sweet"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.create),
@@ -27,7 +27,9 @@ class NewSweetPage extends StatelessWidget {
         keyboardType: TextInputType.multiline,
         maxLines: null,
         decoration: InputDecoration(
-          hintText: "Do you have a sweet story?"
+          hintText: "Do you have a sweet story?",
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.all(20)
         ),
         controller: contentController,
       ),

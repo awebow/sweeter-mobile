@@ -1,16 +1,14 @@
-# sweeter_mobile
-
-A new Flutter project.
+# Sweeter Mobile
+Sweeter Mobile is a cross-platform mobile application of Sweeter: Server-Client based tweet system.
 
 ## Getting Started
+1. Install flutter on here(https://flutter.dev/docs/get-started/install)
 
-This project is a starting point for a Flutter application.
+2. Clone this repository.
+```
+$ git clone https://github.com/awebow/sweeter-mobile
+```
 
-A few resources to get you started if this is your first Flutter project:
+3. Open this repository with your flutter IDE.
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+4. Use run or debug to run the application.
