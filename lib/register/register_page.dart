@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:sweeter_mobile/data.dart' as data;
 import 'package:sweeter_mobile/register/register_bloc.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
 
+  @override
+  State<StatefulWidget> createState() {
+    return RegisterPageState();
+  }
+
+}
+
+class RegisterPageState extends State<RegisterPage> {
+  
   final RegisterBloc bloc = RegisterBloc();
 
   final TextEditingController idController = TextEditingController();
@@ -14,10 +23,10 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(elevation: 0, title: Text("Sign up"),),
       backgroundColor: Theme.of(context).primaryColor,
-      body: Stack(children: <Widget>[
-        AppBar(elevation: 0, title: Text("Sign up"),),
-        SizedBox.expand(child: Column(
+      body: Center(child: 
+        SingleChildScrollView(child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -123,7 +132,7 @@ class RegisterPage extends StatelessWidget {
             ))
           ],
         ))
-      ],),
+      ),
     );
   }
 
@@ -155,6 +164,12 @@ class RegisterPage extends StatelessWidget {
         );
       }
     );
+  }
+
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
   }
 
 }

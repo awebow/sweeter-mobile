@@ -25,7 +25,8 @@ class SweetViewBloc {
 
   refreshAuthor() async {
     var author = User.fromJson(await api.get("/users/${sweet.author}"));
-    _authorController.sink.add(author);
+    if(!_authorController.isClosed)
+      _authorController.sink.add(author);
   }
 
   calcRefreshSweetAt() {

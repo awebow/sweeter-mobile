@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sweeter_mobile/models/user.dart';
 import 'package:sweeter_mobile/search/search_bloc.dart';
 import 'package:sweeter_mobile/user/user_page.dart';
+import 'package:sweeter_mobile/api.dart' as api;
 
 class SearchPage extends StatefulWidget {
 
@@ -38,7 +39,7 @@ class SearchPageState extends State<SearchPage> {
             return ListView.builder(
               itemCount: snapshot.data == null ? 0 : snapshot.data.length,
               itemBuilder: (context, index) => ListTile(
-                leading: Container(width: 36, height: 36, child: CircleAvatar(backgroundColor: Colors.transparent, backgroundImage: NetworkImage("https://i.stack.imgur.com/34AD2.jpg"))),
+                leading: Container(width: 36, height: 36, child: CircleAvatar(backgroundColor: Colors.transparent, backgroundImage: NetworkImage(snapshot.data[index].picture == null ? "https://i.stack.imgur.com/34AD2.jpg" : api.serverUrl + "/statics/${snapshot.data[index].picture}"))),
                 title: Text(snapshot.data[index].name),
                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UserPage(snapshot.data[index]))),
               ),
