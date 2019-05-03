@@ -66,6 +66,7 @@ class UserBloc {
   unfollow() async {
     await api.delete("/users/me/followings/${user.no}");
     refreshRelation();
+    refreshFollowers();
   }
 
   uploadProfile(File file) async {
