@@ -1,9 +1,19 @@
+import 'dart:async';
+
 import 'package:sweeter_mobile/models/user.dart';
 import 'package:sweeter_mobile/api.dart' as api;
 import 'dart:convert';
 import 'package:sweeter_mobile/data.dart' as data;
 
 class RegisterBloc {
+
+  final StreamController<bool> _pwConfirmController = StreamController<bool>();
+
+  get pwConfirmStream => _pwConfirmController.stream;
+
+  checkPassword(String password, String confirmation) {
+    _pwConfirmController.sink.add(password == confirmation);
+  }
 
   Future<void> submit(String id, String password, String name) async {
     try {
@@ -23,6 +33,10 @@ class RegisterBloc {
     } catch(error) {
       return Future.error(error);
     }
+  }
+
+  dispose() {
+    _pwConfirmController.close();
   }
 
 }
